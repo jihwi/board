@@ -1,0 +1,21 @@
+#database
+## spring boot 2.0부터 기본 hikaripool 채택 (tomcat x)
+## 여기서 설정만 해주면 된다.
+spring:
+  datasource:
+    hikari:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      username: test
+      password: test
+      jdbc-url: jdbc:mysql://localhost:3306/HB_PROJECT?serverTimezone=UTC&characterEncoding=utf8
+      maximum-pool-size: 5
+      pool-name: HB_PROJECT_HikariCP
+      connection-timeout: 30000
+      max-lifetime: 1800000
+
+
+#mybatis
+mybatis:
+  config: mybatis-config.xml
+  type-aliases-package: com.hbproject.board
+  mapper-locations: mybatis/mapper/*.xml
