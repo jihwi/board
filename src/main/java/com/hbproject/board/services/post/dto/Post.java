@@ -11,29 +11,29 @@ public class Post {
     /**
      * 게시물 번호
      */
-    private int PostId;
+    private int postId;
     /**
      * 타이틀
      */
-    private String Tit;
+    private String tit;
     /**
      * 내용
      */
-    private String Conts;
+    private String conts;
     /**
      * 입력자
      */
-    private String InsId;
+    private String insId;
     /**
      * 입력일시
      */
-    private LocalDateTime InsDtm;
+    private LocalDateTime insDtm;
     /**
      * 수정자
      */
-    private String ModId;
+    private String modId;
     /**
      * 수정일시
      */
-    private LocalDateTime ModDtm;
+    private LocalDateTime modDtm;
 }
