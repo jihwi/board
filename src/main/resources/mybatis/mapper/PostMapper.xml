@@ -5,4 +5,45 @@
         SELECT *
         FROM HB_PROJECT.POST
     </select>
+
+    <insert id="insertPost">
+        INSERT INTO HB_PROJECT.POST
+        (
+          TIT
+         ,CONTS
+         ,INS_ID
+         ,INS_DTM
+         ,MOD_ID
+         ,MOD_DTM
+        )
+        VALUES
+        (
+          #{tit,jdbcType=VARCHAR}
+         ,#{conts,jdbcType=LONGNVARCHAR}
+         ,#{insId,jdbcType=VARCHAR}
+         ,NOW()
+         ,#{modId,jdbcType=VARCHAR}
+         ,NOW()
+        )
+    </insert>
+
+    <select id="selectPost" resultType="com.hbproject.board.services.post.dto.Post">
+        SELECT *
+        FROM HB_PROJECT.POST
+        WHERE POST_ID = #{postId,jdbcType=INTEGER}
+    </select>
+
+    <update id="updatePost">
+        UPDATE HB_PROJECT.POST
+        SET TIT = #{tit,jdbcType=VARCHAR}
+           ,CONTS = #{conts,jdbcType=LONGNVARCHAR}
+           ,MOD_ID = #{modId,jdbcType=VARCHAR}
+           ,MOD_DTM = NOW()
+        WHERE POST_ID = #{postId,jdbcType=INTEGER}
+    </update>
+
+    <delete id="deletePost">
+        DELETE FROM HB_PROJECT.POST
+        WHERE POST_ID = #{postId,jdbcType=INTEGER}
+    </delete>
 </mapper>
