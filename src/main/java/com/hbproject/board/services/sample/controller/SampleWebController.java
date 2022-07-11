@@ -19,6 +19,6 @@ public class SampleWebController {
     public String sample(Model model) {
         List<Sample> allList = sampleService.getAllList();
         model.addAttribute("list", allList);
-        return "index";
+        return "pages/sample";
     }
 }
