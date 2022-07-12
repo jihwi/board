@@ -16,7 +16,6 @@ spring:
 
 #mybatis
 mybatis:
-  config: mybatis-config.xml
   type-aliases-package: com.hbproject.board
   mapper-locations: mybatis/mapper/*.xml
 

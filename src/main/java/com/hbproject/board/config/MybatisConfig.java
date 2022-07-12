@@ -33,10 +33,6 @@ public class MybatisConfig {
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sessionFactory.setMapperLocations(resolver.getResources("classpath:mybatis/mapper/*.xml"));
 
-        //mybatis-config는 말 그대로 Mybatis 설정 파일이다.
-        Resource myBatisConfig = new PathMatchingResourcePatternResolver().getResource("classpath:mybatis/mybatis-config.xml");
-        sessionFactory.setConfigLocation(myBatisConfig);
-
         return sessionFactory.getObject();
     }
 }
