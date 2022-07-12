@@ -9,7 +9,7 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="page-heading">
-                        <h1>Register Post</h1>
+                        <h1 th:text="${post} ? 'Modify Post': 'Register Post'">Register Post</h1>
 <!--                        <span class="subheading">Have questions? I have answers.</span>-->
                     </div>
                 </div>
@@ -22,14 +22,14 @@
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <div class="my-5">
-                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" action="/posts" method="post">
+                        <form id="contactForm" data-sb-form-api-token="API_TOKEN" th:action="${post}? '/posts/' + ${post.postId} : '/posts'" method="post">
                             <div class="mb-3">
                                 <label for="postTitInput" class="form-label">Post Title</label>
-                                <input type="text" class="form-control" id="postTitInput" placeholder="제목을 기입하세요." name="tit">
+                                <input type="text" class="form-control" id="postTitInput" placeholder="제목을 기입하세요." name="tit" th:value="${post?.tit}">
                             </div>
                             <div class="mb-3">
                                 <label for="postContsInput" class="form-label">Post Contents</label>
-                                <textarea class="form-control" id="postContsInput" rows="15" placeholder="내용을 기입하세요." name="conts"></textarea>
+                                <textarea class="form-control" id="postContsInput" rows="15" placeholder="내용을 기입하세요." name="conts" th:text="${post?.conts}"></textarea>
                             </div>
 <!--                            -->
 <!--                            <div class="form-floating">-->
@@ -58,21 +58,21 @@
                             <!---->
                             <!-- This is what your users will see when the form-->
                             <!-- has successfully submitted-->
-                            <div class="d-none" id="submitSuccessMessage">
-                                <div class="text-center mb-3">
-                                    <div class="fw-bolder">Form submission successful!</div>
-                                    To activate this form, sign up at
-                                    <br />
-                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                                </div>
-                            </div>
+<!--                            <div class="d-none" id="submitSuccessMessage">-->
+<!--                                <div class="text-center mb-3">-->
+<!--                                    <div class="fw-bolder">Form submission successful!</div>-->
+<!--                                    To activate this form, sign up at-->
+<!--                                    <br />-->
+<!--                                    <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>-->
+<!--                                </div>-->
+<!--                            </div>-->
                             <!-- Submit error message-->
                             <!---->
                             <!-- This is what your users will see when there is-->
                             <!-- an error submitting the form-->
                             <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
                             <!-- Submit Button-->
-                            <button class="btn btn-primary text-uppercase" id="submitButton" type="submit">Send</button>
+                            <button class="btn btn-primary text-uppercase" id="submitButton" type="submit" th:text="${post} ? '수정' : '등록'"></button>
                         </form>
                     </div>
                 </div>

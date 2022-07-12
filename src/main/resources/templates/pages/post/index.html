@@ -23,28 +23,31 @@
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
                 <div class="col-md-10 col-lg-8 col-xl-7">
-                    <th:block th:each = "post : ${postList}">
-                        <!-- Post preview-->
-                        <div class="post-preview">
-                            <a th:href="@{/posts/{postId}(postId = ${post.postId})}">
-                                <h2 class="post-title" th:text="${post.Tit}"></h2>
-<!--                                <h3 class="post-subtitle" th:text="${post.subTit}"></h3>-->
-                            </a>
-                            <p class="post-meta">
-                                Posted by
-                                <a href="#!" th:text="${post.InsId}"></a>
-                                <span th:text="${post.insDtm}"></span>
-                            </p>
-                        </div>
-                        <!-- Divider-->
-                        <hr class="my-4" />
-                    </th:block>
+                    <th:block th:if="${postList != null && postList.size() > 0}">
+                        <th:block th:each = "post : ${postList}">
+                            <!-- Post preview-->
+                            <div class="post-preview">
+                                <a th:href="@{/posts/{postId}(postId = ${post.postId})}">
+                                    <h2 class="post-title" th:text="${post.Tit}"></h2>
+                                    <!--                                <h3 class="post-subtitle" th:text="${post.subTit}"></h3>-->
+                                </a>
+                                <p class="post-meta">
+                                    Posted by
+                                    <a href="#!" th:text="${post.InsId}"></a>
+                                    <span th:text="${post.insDtm}"></span>
+                                </p>
+                            </div>
+                            <!-- Divider-->
+                            <hr class="my-4" />
+                        </th:block>
 
+                    </th:block>
                     <div class="btn-toolbar justify-content-end">
                         <!-- Pager-->
                         <div class="d-flex justify-content-end mb-4 m-1"><a class="btn btn-primary text-uppercase" href="#!">이전 게시물→</a></div>
                         <!-- register-->
                         <div class="d-flex justify-content-end mb-4 m-1"><a class="btn btn-primary text-uppercase" href="/register">게시물 등록하기</a></div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * Post CURD
+ * Post CRUD
  */
 @Service
 @RequiredArgsConstructor

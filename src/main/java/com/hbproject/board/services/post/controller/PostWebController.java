@@ -6,12 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.List;
 
 /**
  * main controller
- * post CURD
+ * post CRUD
  */
 @Controller
 @RequiredArgsConstructor
@@ -25,10 +27,28 @@ public class PostWebController {
         return "redirect:/posts";
     }
 
+    /**
+     * 포스트 등록 페이지 이동
+     * @return
+     */
     @GetMapping("/register")
     public String registerPage(){
         return "/pages/post/register";
     }
+
+    /**
+     * 포스트 수정 페이지 이동
+     * @param postId
+     * @param model
+     * @return
+     */
+    @GetMapping("/modify")
+    public String modifyPage(@RequestParam("postId")int postId,  Model model){
+        Post post = postService.getPost(postId);
+        model.addAttribute("post", post);
+        return "/pages/post/register";
+    }
+
 
     /**
      * post 리스트 조회
@@ -46,6 +66,7 @@ public class PostWebController {
     /**
      * post 등록
      */
+    //PRG 패턴(Post - Redirect - Get)
     @PostMapping("/posts")
     public String registerPost(Post post) {
         postService.registerPost(post);
@@ -81,8 +102,20 @@ public class PostWebController {
     /**
      * post 삭제
      */
+    //Controller에서 void타입은 현재 페이지 view를 리턴하게 되므로 void 시 에러발생 (삭제되엇기 때문)
+    //delete일때는 post일때랑 다르게 redirect:/posts시 동일 delete method로 날라감.
+    //ajax는 부분 수정이기 때문에 redirect와 맞지 않음. 페이지 이동을 하고 싶다면 form형태로 하면됨.
+
     @DeleteMapping("/posts/{postId}")
-    public void deletePost(@PathVariable("postId") int postId) {
+    @ResponseBody
+    public String deletePost(@PathVariable("postId") int postId) {
         postService.deletePost(postId);
+        return "포스트가 삭제되었습니다.";
     }
+//    @DeleteMapping("/posts/{postId}")
+//    public String deletePost(@PathVariable("postId") int postId) {
+//        postService.deletePost(postId);
+//        return "redirect:/posts";
+//    }
+
 }

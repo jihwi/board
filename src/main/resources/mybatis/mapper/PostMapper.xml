@@ -35,9 +35,9 @@
 
     <update id="updatePost">
         UPDATE HB_PROJECT.POST
-        SET TIT = #{tit,jdbcType=VARCHAR}
-           ,CONTS = #{conts,jdbcType=LONGNVARCHAR}
-           ,MOD_ID = #{modId,jdbcType=VARCHAR}
+        SET TIT = #{post.tit,jdbcType=VARCHAR}
+           ,CONTS = #{post.conts,jdbcType=LONGNVARCHAR}
+           ,MOD_ID = #{post.modId,jdbcType=VARCHAR}
            ,MOD_DTM = NOW()
         WHERE POST_ID = #{postId,jdbcType=INTEGER}
     </update>

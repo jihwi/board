@@ -25,11 +25,38 @@
     <article class="mb-4">
         <div class="container px-4 px-lg-5">
             <div class="row gx-4 gx-lg-5 justify-content-center">
-                <div class="col-md-10 col-lg-8 col-xl-7" th:utext="${post.conts}">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <pre th:utext="${post.conts}">
+                        <!--상세 내용 입력 부분 -->
+                    </pre>
                 </div>
             </div>
         </div>
     </article>
+
+    <div class="btn-toolbar justify-content-end px-4 container">
+        <!--modiy-->
+        <div class="mb-4 m-1"><a class="btn btn-primary text-uppercase" th:href="@{/modify(postId=${post.postId})}">수정하기</a></div>
+        <!--delete-->
+        <div class="mb-4 m-1 btn btn-primary text-uppercase" id="postDelete">삭제하기</div>
+    </div>
+</th:block>
+<th:block layout:fragment="pageScript">
+    <script th:inline="javascript">
+
+        let postId = /*[[ ${post.postId} ]]*/ '';
+
+        $('#postDelete').click(function(){
+            $.ajax({
+                method: "DELETE",
+                url: "/posts/" + postId,
+                contentType:'application/json',
+                success: function(data){
+                    location.href = '/posts';
+                }
+            })
+        })
+    </script>
 </th:block>
 </html>
 

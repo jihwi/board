@@ -36,7 +36,7 @@ public interface PostRepository {
      * @param postId
      * @param post
      */
-    void updatePost(@Param("postId") int postId, Post post);
+    void updatePost(@Param("postId") int postId, @Param("post") Post post);
 
     /**
      * Post 삭제

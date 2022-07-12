@@ -22,5 +22,12 @@
 
     <!-- 공통 스크립트-->
     <th:block th:replace="/layout/fragments/script :: scriptFragment"></th:block>
+
+    <!-- 각 페이지 스크립트 -->
+    <th:block layout:fragment="pageScript">
+        <script>
+            console.log("defualt");
+        </script>
+    </th:block>
 </body>
 </html>
