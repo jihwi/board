@@ -2,6 +2,7 @@ package com.hbproject.board.services.post.service;
 
 import com.hbproject.board.common.paging.PageCriteria;
 import com.hbproject.board.services.post.dto.Post;
+import com.hbproject.board.services.post.dto.PostCriteria;
 import com.hbproject.board.services.post.mapper.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,8 +22,8 @@ public class PostService {
      *
      * @return
      */
-    public List<Post> getPostPageList(PageCriteria pageCriteria) {
-        return postRepository.selectPostPageList(pageCriteria);
+    public List<Post> getPostPageList(PageCriteria pageCriteria, PostCriteria postCriteria) {
+        return postRepository.selectPostPageList(pageCriteria, postCriteria);
     }
 
     /**
@@ -64,11 +65,11 @@ public class PostService {
     }
 
     /**
-     * Post 전체 수량 조회
+     * Post 수량 조회
      *
      * @return
      */
-    public int getTotalPostCount() {
-        return postRepository.selectPostCount();
+    public int getTotalPostCount(PostCriteria postCriteria) {
+        return postRepository.selectPostCount(postCriteria);
     }
 }

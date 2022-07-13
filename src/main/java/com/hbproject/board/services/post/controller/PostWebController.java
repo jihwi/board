@@ -2,8 +2,10 @@ package com.hbproject.board.services.post.controller;
 
 import com.hbproject.board.common.paging.PageCriteria;
 import com.hbproject.board.services.post.dto.Post;
+import com.hbproject.board.services.post.dto.PostCriteria;
 import com.hbproject.board.services.post.service.PostService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +19,14 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @RequestMapping({"/", ""})
+@Slf4j
 public class PostWebController {
 
     private final PostService postService;
 
     @GetMapping
     public String main() {
-        return "redirect:/posts";
+        return "pages/post/index";
     }
 
     /**
@@ -58,17 +61,19 @@ public class PostWebController {
      * @return
      */
     @GetMapping("/posts")
-    public String getPostPageList(PageCriteria pageCriteria, Model model) {
+    public String getPostPageList(PageCriteria pageCriteria, PostCriteria postCriteria, Model model) {
+        log.debug("postCriteria:{}", postCriteria.toString());
 
+        //조회할 페이지정보 세팅
         if (pageCriteria.getTotal() == 0) {
-            int total = postService.getTotalPostCount();
+            int total = postService.getTotalPostCount(postCriteria);
             pageCriteria = new PageCriteria(total, pageCriteria.getNowPage(), pageCriteria.getCntPerPage());
         }
 
-        List<Post> postList = postService.getPostPageList(pageCriteria);
+        List<Post> postList = postService.getPostPageList(pageCriteria, postCriteria);
         model.addAttribute("postList", postList);
         model.addAttribute("paging", pageCriteria);
-        return "pages/post/index";
+        return "pages/post/index :: #postList";
     }
 
     /**
