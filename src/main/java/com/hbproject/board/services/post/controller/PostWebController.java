@@ -83,7 +83,7 @@ public class PostWebController {
     @PostMapping("/posts")
     public String registerPost(Post post) {
         postService.registerPost(post);
-        return "redirect:/posts";
+        return "redirect:/";
     }
 
     /**
@@ -109,7 +109,7 @@ public class PostWebController {
     @PostMapping("/posts/{postId}")
     public String modifyPost(@PathVariable("postId") int postId, Post post) {
         postService.modifyPost(postId, post);
-        return "redirect:/posts";
+        return "redirect:/";
     }
 
     /**
