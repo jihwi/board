@@ -1,5 +1,6 @@
 package com.hbproject.board.services.post.controller;
 
+import com.hbproject.board.common.paging.PageCriteria;
 import com.hbproject.board.services.post.dto.Post;
 import com.hbproject.board.services.post.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -27,21 +28,23 @@ public class PostWebController {
 
     /**
      * 포스트 등록 페이지 이동
+     *
      * @return
      */
     @GetMapping("/register")
-    public String registerPage(){
+    public String registerPage() {
         return "/pages/post/register";
     }
 
     /**
      * 포스트 수정 페이지 이동
+     *
      * @param postId
      * @param model
      * @return
      */
     @GetMapping("/modify")
-    public String modifyPage(@RequestParam("postId")int postId,  Model model){
+    public String modifyPage(@RequestParam("postId") int postId, Model model) {
         Post post = postService.getPost(postId);
         model.addAttribute("post", post);
         return "/pages/post/register";
@@ -55,9 +58,16 @@ public class PostWebController {
      * @return
      */
     @GetMapping("/posts")
-    public String getAllPostList(Model model) {
-        List<Post> postList = postService.getAllPostList();
+    public String getPostPageList(PageCriteria pageCriteria, Model model) {
+
+        if (pageCriteria.getTotal() == 0) {
+            int total = postService.getTotalPostCount();
+            pageCriteria = new PageCriteria(total, pageCriteria.getNowPage(), pageCriteria.getCntPerPage());
+        }
+
+        List<Post> postList = postService.getPostPageList(pageCriteria);
         model.addAttribute("postList", postList);
+        model.addAttribute("paging", pageCriteria);
         return "pages/post/index";
     }
 
@@ -103,7 +113,6 @@ public class PostWebController {
     //Controller에서 void타입은 현재 페이지 view를 리턴하게 되므로 void 시 에러발생 (삭제되엇기 때문)
     //delete일때는 post일때랑 다르게 redirect:/posts시 동일 delete method로 날라감.
     //ajax는 부분 수정이기 때문에 redirect와 맞지 않음. 페이지 이동을 하고 싶다면 form형태로 하면됨.
-
     @DeleteMapping("/posts/{postId}")
     @ResponseBody
     public String deletePost(@PathVariable("postId") int postId) {

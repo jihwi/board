@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hbproject.board.services.post.mapper.PostRepository">
-    <select id="selectAllList" resultType="com.hbproject.board.services.post.dto.Post">
+    <select id="selectPostPageList" resultType="com.hbproject.board.services.post.dto.Post">
         SELECT *
         FROM HB_PROJECT.POST
+        ORDER BY POST_ID DESC
+        LIMIT #{start}, #{cntPerPage}
     </select>
 
     <insert id="insertPost">
@@ -46,4 +48,9 @@
         DELETE FROM HB_PROJECT.POST
         WHERE POST_ID = #{postId,jdbcType=INTEGER}
     </delete>
+
+    <select id="selectPostCount" resultType="int">
+        SELECT COUNT(*)
+        FROM HB_PROJECT.POST
+    </select>
 </mapper>

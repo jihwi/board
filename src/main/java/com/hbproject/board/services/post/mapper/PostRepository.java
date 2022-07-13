@@ -1,5 +1,6 @@
 package com.hbproject.board.services.post.mapper;
 
+import com.hbproject.board.common.paging.PageCriteria;
 import com.hbproject.board.services.post.dto.Post;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -13,7 +14,7 @@ public interface PostRepository {
      *
      * @return
      */
-    List<Post> selectAllList();
+    List<Post> selectPostPageList(PageCriteria pageCriteria);
 
     /**
      * Post 단건 조회
@@ -44,4 +45,11 @@ public interface PostRepository {
      * @param postId
      */
     void deletePost(int postId);
+
+    /**
+     * Post 전체 수량 조회
+     *
+     * @return
+     */
+    int selectPostCount();
 }

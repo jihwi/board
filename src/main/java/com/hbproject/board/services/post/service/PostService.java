@@ -1,5 +1,6 @@
 package com.hbproject.board.services.post.service;
 
+import com.hbproject.board.common.paging.PageCriteria;
 import com.hbproject.board.services.post.dto.Post;
 import com.hbproject.board.services.post.mapper.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,8 @@ public class PostService {
      *
      * @return
      */
-    public List<Post> getAllPostList() {
-        return postRepository.selectAllList();
+    public List<Post> getPostPageList(PageCriteria pageCriteria) {
+        return postRepository.selectPostPageList(pageCriteria);
     }
 
     /**
@@ -60,5 +61,14 @@ public class PostService {
      */
     public void deletePost(int postId) {
         postRepository.deletePost(postId);
+    }
+
+    /**
+     * Post 전체 수량 조회
+     *
+     * @return
+     */
+    public int getTotalPostCount() {
+        return postRepository.selectPostCount();
     }
 }
