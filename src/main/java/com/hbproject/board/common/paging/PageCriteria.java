@@ -5,6 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
+@Deprecated
+/**
+ * mybatis용 PageHelper 라이브러리 사용
+ */
 public class PageCriteria {
     /**
      * 현재페이지

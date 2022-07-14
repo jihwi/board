@@ -42,9 +42,9 @@
                     </div>
                     <hr class="my-4" />
                     <div id="postList">
-                        <th:block th:if="${postList != null && postList.size() > 0}">
-                            <p style="text-align: end;" th:text="|총 포스트 ${paging.total} 건|"></p>
-                            <th:block th:each = "post : ${postList}">
+                        <th:block th:if="${postPageInfo != null}">
+                            <p style="text-align: end;" th:text="|총 포스트 ${postPageInfo.total} 건|"></p>
+                            <th:block th:each = "post : ${postPageInfo.list}">
                                 <!-- Post preview-->
                                 <div class="post-preview">
                                     <a th:href="@{/posts/{postId}(postId = ${post.postId})}">
@@ -63,7 +63,7 @@
                         </th:block>
                         <div style="display: flex">
                             <!--pagination-->
-                            <th:block th:replace="/layout/fragments/pagination :: pagination(${postList})"></th:block>
+                            <th:block th:replace="/layout/fragments/pagination :: pagination(${postPageInfo})"></th:block>
                             <!-- register-->
                             <div class="d-flex justify-content-end mb-4 m-1 w-25">
                                 <a class="btn btn-primary text-uppercase" href="/register">게시물 등록하기</a>
@@ -83,15 +83,15 @@
         })
 
         //필터는 url 변경없이 결과값을 하단에 노출한다. 필터와 페이징은 함께
-        function searchList(nowPage){
+        function searchList(pageNum){
             const data = {
                 keyword : $('.filter_keyword').val(),
                 author : $('.filter_author').val(),
                 date : $('.filter_date').val()
             }
 
-            if(nowPage != null && nowPage != ''){
-                data.nowPage = nowPage;
+            if(pageNum != null && pageNum != ''){
+                data.pageNum = pageNum;
             }
 
             $.ajax({

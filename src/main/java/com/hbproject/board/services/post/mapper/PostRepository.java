@@ -15,7 +15,7 @@ public interface PostRepository {
      *
      * @return
      */
-    List<Post> selectPostPageList(@Param("pageCriteria") PageCriteria pageCriteria, @Param("postCriteria") PostCriteria postCriteria);
+    List<Post> selectPostPageList(PostCriteria postCriteria);
 
     /**
      * Post 단건 조회

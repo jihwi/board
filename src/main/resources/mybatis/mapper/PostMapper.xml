@@ -5,18 +5,17 @@
         SELECT *
         FROM HB_PROJECT.POST
         <where>
-            <if test="postCriteria.author != null and postCriteria.author != ''">
-                AND INS_ID LIKE CONCAT('%',#{postCriteria.author,jdbcType=VARCHAR},'%')
+            <if test="author != null and author != ''">
+                AND INS_ID LIKE CONCAT('%',#{author,jdbcType=VARCHAR},'%')
             </if>
-            <if test="postCriteria.keyword != null and postCriteria.keyword != ''">
-                AND TIT LIKE CONCAT('%',#{postCriteria.keyword,jdbcType=VARCHAR},'%') OR CONTS LIKE CONCAT('%',#{postCriteria.keyword,jdbcType=VARCHAR},'%')
+            <if test="keyword != null and keyword != ''">
+                AND TIT LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%') OR CONTS LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
             </if>
-            <if test="postCriteria.date != null">
-                AND INS_DTM = #{postCriteria.date,jdbcType=TIMESTAMP}
+            <if test="date != null">
+                AND INS_DTM = #{date,jdbcType=TIMESTAMP}
             </if>
         </where>
         ORDER BY POST_ID DESC
-        LIMIT #{pageCriteria.start,jdbcType=INTEGER}, #{pageCriteria.cntPerPage,jdbcType=INTEGER}
     </select>
 
     <insert id="insertPost">

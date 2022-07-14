@@ -1,6 +1,7 @@
 package com.hbproject.board.services.post.controller;
 
-import com.hbproject.board.common.paging.PageCriteria;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hbproject.board.services.post.dto.Post;
 import com.hbproject.board.services.post.dto.PostCriteria;
 import com.hbproject.board.services.post.service.PostService;
@@ -61,18 +62,14 @@ public class PostWebController {
      * @return
      */
     @GetMapping("/posts")
-    public String getPostPageList(PageCriteria pageCriteria, PostCriteria postCriteria, Model model) {
+    public String getPostPageList(PostCriteria postCriteria, Model model) {
         log.debug("postCriteria:{}", postCriteria.toString());
 
-        //조회할 페이지정보 세팅
-        if (pageCriteria.getTotal() == 0) {
-            int total = postService.getTotalPostCount(postCriteria);
-            pageCriteria = new PageCriteria(total, pageCriteria.getNowPage(), pageCriteria.getCntPerPage());
-        }
-
-        List<Post> postList = postService.getPostPageList(pageCriteria, postCriteria);
-        model.addAttribute("postList", postList);
-        model.addAttribute("paging", pageCriteria);
+        //mybatis PageHelper 사용
+        PageHelper.startPage(postCriteria);
+        List<Post> postList = postService.getPostPageList(postCriteria);
+        PageInfo<Post> postPageInfo = PageInfo.of(postList, 5);
+        model.addAttribute("postPageInfo", postPageInfo);
         return "pages/post/index :: #postList";
     }
 

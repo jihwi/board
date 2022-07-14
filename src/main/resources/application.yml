@@ -13,6 +13,9 @@ spring:
       connection-timeout: 30000
       max-lifetime: 1800000
 
+  main:
+    allow-circular-references: true
+
 
 #mybatis
 mybatis:

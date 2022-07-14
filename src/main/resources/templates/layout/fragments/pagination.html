@@ -1,23 +1,23 @@
 <!DOCTYPE html>
 <html lagn="ko" xmlns:th="http://www.thymeleaf.org">
     <!--pagination-->
-    <th:block th:fragment="pagination(list)">
+    <th:block th:fragment="pagination(pageInfo)">
         <nav aria-label="Page navigation example" class="w-75">
-            <th:blcok th:if ="${list != null && list.size() > 0}">
+            <th:blcok th:if ="${pageInfo != null}">
                 <ul class="pagination justify-content-center">
-                    <li class="page-item" th:classappend="${paging.startPage} == 1 ? disabled">
-                        <a class="page-link" th:onclick="'javascript:searchList('+${paging.startPage-paging.cntPage <= 0 ? 1 : paging.startPage-paging.cntPage}+')'" aria-label="Previous">
+                    <li class="page-item" th:classappend="${pageInfo.navigateFirstPage} == 1 ? disabled">
+                        <a class="page-link" th:onclick="'javascript:searchList('+${pageInfo.navigateFirstPage-pageInfo.pageSize <= 0 ? 1 : pageInfo.navigateFirstPage-pageInfo.pageSize}+')'" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                             <span class="sr-only">Previous</span>
                         </a>
                     </li>
                     <!--현재페이지부터 페이지 사이즈까지 1씩 커지면서 돌기 -->
-                    <th:block th:each = "num : ${#numbers.sequence(paging.startPage, paging.endPage)}">
+                    <th:block th:each = "num : ${pageInfo.navigatepageNums}">
                         <li class="page-item"><a class="page-link" th:onclick="'javascript:searchList('+${num}+')'" th:text="${num}"></a></li>
                     </th:block>
 
-                    <li class="page-item" th:classappend="${paging.endPage} == ${paging.lastPage} ? disabled">
-                        <a class="page-link" th:onclick="'javascript:searchList('+${paging.endPage == paging.lastPage ? paging.endPage : (paging.endPage + 1)}+')'" aria-label="Next">
+                    <li class="page-item" th:classappend="${pageInfo.navigateLastPage} == ${pageInfo.pages} ? disabled">
+                        <a class="page-link" th:onclick="'javascript:searchList('+${pageInfo.navigateLastPage == pageInfo.pages ? pageInfo.pages : (pageInfo.navigateLastPage + 1)}+')'" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                             <span class="sr-only">Next</span>
                         </a>

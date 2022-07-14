@@ -22,8 +22,8 @@ public class PostService {
      *
      * @return
      */
-    public List<Post> getPostPageList(PageCriteria pageCriteria, PostCriteria postCriteria) {
-        return postRepository.selectPostPageList(pageCriteria, postCriteria);
+    public List<Post> getPostPageList(PostCriteria postCriteria) {
+        return postRepository.selectPostPageList(postCriteria);
     }
 
     /**

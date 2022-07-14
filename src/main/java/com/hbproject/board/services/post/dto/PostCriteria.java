@@ -24,4 +24,10 @@ public class PostCriteria {
      */
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate date;
+
+    /**
+     * 페이징
+     */
+    private int pageNum = 1;    //현재페이지 번호
+    private int pageSize = 5;   //페이지당 사이즈
 }
