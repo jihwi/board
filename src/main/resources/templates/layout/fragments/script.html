@@ -5,5 +5,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Core theme JS-->
     <script src="/js/scripts.js"></script>
+    <!--공통 환경변수-->
+    <script th:inline="javascript">
+        let fileUrl = /*[[${@environment.getProperty('domain.fileUrl')}]]*/ '';
+    </script>
 </th:block>
 </html>

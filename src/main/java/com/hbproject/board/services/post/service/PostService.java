@@ -63,13 +63,4 @@ public class PostService {
     public void deletePost(int postId) {
         postRepository.deletePost(postId);
     }
-
-    /**
-     * Post 수량 조회
-     *
-     * @return
-     */
-    public int getTotalPostCount(PostCriteria postCriteria) {
-        return postRepository.selectPostCount(postCriteria);
-    }
 }

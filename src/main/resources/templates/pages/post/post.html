@@ -29,6 +29,13 @@
                     <pre th:utext="${post.conts}">
                         <!--상세 내용 입력 부분 -->
                     </pre>
+                    <hr class="my-4" />
+                    <th:block th:if="${post.filePath}">
+                        <div class="mb-3">
+                            <label class="form-label">첨부파일</label>
+                            <a class="form-control" th:href="@{/file/download(filePath=${post.filePath})}" th:text="${post.filePath}"></a>
+                        </div>
+                    </th:block>
                 </div>
             </div>
         </div>

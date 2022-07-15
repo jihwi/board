@@ -22,20 +22,22 @@
         INSERT INTO HB_PROJECT.POST
         (
           TIT
-         ,CONTS
-         ,INS_ID
-         ,INS_DTM
-         ,MOD_ID
-         ,MOD_DTM
+        , CONTS
+        , FILE_PATH
+        , INS_ID
+        , INS_DTM
+        , MOD_ID
+        , MOD_DTM
         )
         VALUES
         (
           #{tit,jdbcType=VARCHAR}
-         ,#{conts,jdbcType=LONGNVARCHAR}
-         ,#{insId,jdbcType=VARCHAR}
-         ,NOW()
-         ,#{modId,jdbcType=VARCHAR}
-         ,NOW()
+        , #{conts,jdbcType=LONGNVARCHAR}
+        , #{filePath,jdbcType=VARCHAR}
+        , #{insId,jdbcType=VARCHAR}
+        , NOW()
+        , #{modId,jdbcType=VARCHAR}
+        , NOW()
         )
     </insert>
 
@@ -48,9 +50,10 @@
     <update id="updatePost">
         UPDATE HB_PROJECT.POST
         SET TIT = #{post.tit,jdbcType=VARCHAR}
-           ,CONTS = #{post.conts,jdbcType=LONGNVARCHAR}
-           ,MOD_ID = #{post.modId,jdbcType=VARCHAR}
-           ,MOD_DTM = NOW()
+          , CONTS = #{post.conts,jdbcType=LONGNVARCHAR}
+          , FILE_PATH = #{post.filePath,jdbcType=VARCHAR}
+          , MOD_ID = #{post.modId,jdbcType=VARCHAR}
+          , MOD_DTM = NOW()
         WHERE POST_ID = #{postId,jdbcType=INTEGER}
     </update>
 
@@ -58,20 +61,4 @@
         DELETE FROM HB_PROJECT.POST
         WHERE POST_ID = #{postId,jdbcType=INTEGER}
     </delete>
-
-    <select id="selectPostCount" resultType="int">
-        SELECT COUNT(*)
-        FROM HB_PROJECT.POST
-        <where>
-            <if test="author != null and author != ''">
-                AND INS_ID LIKE CONCAT('%',#{author,jdbcType=VARCHAR},'%')
-            </if>
-            <if test="keyword != null and keyword != ''">
-                AND TIT LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%') OR CONTS LIKE CONCAT('%',#{keyword,jdbcType=VARCHAR},'%')
-            </if>
-            <if test="date != null">
-                AND INS_DTM = #{date,jdbcType=TIMESTAMP}
-            </if>
-        </where>
-    </select>
 </mapper>

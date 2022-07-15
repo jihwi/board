@@ -16,6 +16,10 @@ spring:
   main:
     allow-circular-references: true
 
+  servlet:
+    multipart:
+      maxFileSize: 10MB
+      maxRequestSize: 10MB
 
 #mybatis
 mybatis:
@@ -34,3 +38,8 @@ logging:
     rollingpolicy:
       max-file-size: 500MB
       max-history: 10
+
+
+## 도메인 url
+domain:
+  fileUrl: http://localhost:8080/tomcat/

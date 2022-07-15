@@ -31,6 +31,11 @@
                                 <label for="postContsInput" class="form-label">Post Contents</label>
                                 <textarea class="form-control" id="postContsInput" rows="15" placeholder="내용을 기입하세요." name="conts" th:text="${post?.conts}"></textarea>
                             </div>
+                            <div class="mb-3 fileUpload_container">
+                                <label class="form-label">File Upload</label>
+                                <input class="form-control" type="file" id="formFile">
+                                <input style="display: none;" th:value="${post?.filePath}" id="filePath" name="filePath">
+                            </div>
 <!--                            -->
 <!--                            <div class="form-floating">-->
 <!--                                <input class="form-control" id="name" type="text" placeholder="Enter your name..." data-sb-validations="required" />-->
@@ -79,5 +84,66 @@
             </div>
         </div>
     </main>
+</th:block>
+<th:block layout:fragment="pageScript">
+    <script th:inline="javascript">
+        let post = /*[[ ${post} ]]*/ '';
+
+        $(document).ready(function(){
+            if(post != null && post != ''){
+                const p = $('<p>').text(post.filePath);
+                $('.fileUpload_container').append(p);
+                renderThumbnail(post);
+            }
+        })
+        $('#formFile').on('change', function(e){
+            let formData = new FormData();
+            formData.append('uploadFile', e.target.files[0]);
+
+            $.ajax({
+                url: "/file/upload",
+                method: "POST",
+                dataType: "json",
+                processData: false,
+                contentType: false,
+                data: formData,
+                success: function(data){
+                    $('#filePath').val(data[0].filePullPath);
+                    if(data[0].image === true){
+                        makeThumbnail(data[0]);
+                    }
+                }
+            })
+        })
+
+        function makeThumbnail(data){
+            const p = $('<p>').text(data.fileName);
+            const img = $('<img>').attr('src', fileUrl +data.filePath + '/s_'+ data.fileName);
+            $('.fileUpload_container').append(p);
+            $('.fileUpload_container').append(img);
+        }
+
+        function renderThumbnail(post){
+            let filePath = post.filePath.split('/');
+            const fileName = filePath.pop();
+            const imageExtensions = ['jpg','jpeg','png'];
+            let isImage = false;
+            imageExtensions.forEach(function(el, index){
+                if(fileName.indexOf(el)!= -1){
+                    isImage = true;
+                    return false; //break;
+                }
+            })
+
+
+            if(isImage){
+                const img = $('<img>').attr('src', fileUrl + filePath.join('/') + '/s_' + fileName);
+                $('.fileUpload_container').append(img);
+            }
+
+
+
+        }
+    </script>
 </th:block>
 </html>

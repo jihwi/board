@@ -21,6 +21,10 @@ public class Post {
      */
     private String conts;
     /**
+     * 파일 경로
+     */
+    private String filePath;
+    /**
      * 입력자
      */
     private String insId;
