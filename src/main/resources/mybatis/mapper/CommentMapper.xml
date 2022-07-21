@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbproject.board.services.comment.mapper.CommentRepository">
+
+    <select id="selectComments" resultType="com.hbproject.board.services.comment.dto.Comment">
+        WITH RECURSIVE CTE (NO, POST_ID, CONTS, REPLY_YN, REPLY_NO, INS_ID, INS_DTM, MOD_ID, MOD_DTM, ROOT_NO) AS(
+            SELECT c1.*, c1.no AS ROOT_NO
+            FROM HB_PROJECT.COMMENT c1
+            WHERE REPLY_YN ='N'
+            AND c1.POST_ID =  #{postId, jdbcType=VARCHAR}
+            UNION ALL
+            SELECT c1.*, c2.ROOT_NO AS ROOT_NO
+            FROM HB_PROJECT.COMMENT c1
+               , CTE c2
+            WHERE c1.REPLY_NO = c2.NO
+            AND c1.POST_ID =  #{postId, jdbcType=VARCHAR}
+        )
+        SELECT *
+        FROM CTE
+        WHERE POST_ID =  #{postId, jdbcType=VARCHAR}
+    </select>
+
+    <insert id="insertComment" useGeneratedKeys="true" keyProperty="no">
+        INSERT INTO HB_PROJECT.COMMENT
+        (
+            POST_ID
+          , CONTS
+          , REPLY_YN
+          , REPLY_NO
+          , INS_ID
+          , INS_DTM
+          , MOD_ID
+          , MOD_DTM
+        ) VALUES
+        (
+           #{postId,jdbcType=INTEGER}
+         , #{conts,jdbcType=VARCHAR}
+         , #{replyYn,jdbcType=VARCHAR}
+         , #{replyNo,jdbcType=INTEGER}
+         , #{insId,jdbcType=VARCHAR}
+         , #{insDtm,jdbcType=TIMESTAMP}
+         , #{modId,jdbcType=VARCHAR}
+         , #{modDtm,jdbcType=TIMESTAMP}
+        )
+    </insert>
+
+    <delete id="deleteComment">
+        DELETE FROM HB_PROJECT.COMMENT
+        WHERE NO = #{no,jdbcType=INTEGER}
+    </delete>
+
+</mapper>

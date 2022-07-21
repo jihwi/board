@@ -36,8 +36,20 @@
                             <a class="form-control" th:href="@{/file/download(filePath=${post.filePath})}" th:text="${post.filePath}"></a>
                         </div>
                     </th:block>
+
+                    <hr class="my-4" />
+                    <div id="comment">
+                        <!--댓글영역-->
+
+                    </div>
+                    <form class="mb-3" th:action="|/comment/${post.postId}|" method="POST">
+                        <label class="form-label">댓글</label>
+                        <input type="text" name="conts" class="form-control">
+                        <button type="submit">전송</button>
+                        <input type="text" class="replyNo hidden" name="replyNo">
+                    </form>
                 </div>
-            </div>
+           </div>
         </div>
     </article>
 
@@ -52,18 +64,38 @@
     <script th:inline="javascript">
 
         let postId = /*[[ ${post.postId} ]]*/ '';
+        let commentList = '';
+        let template = '';
+
+        $(document).ready(function(){
+            searchList(1);
+        })
+
+        function searchList(pageNum){
+            $.ajax({
+                method:'GET',
+                url: '/comment/' + postId + '?pageNum='+ pageNum,
+                dataType: 'html',
+                success: function(data){
+                    $('#comment').html(data);
+                    renderCommentList();
+                }
+            })
+        }
 
         $('#postDelete').click(function(){
             $.ajax({
-                method: "DELETE",
-                url: "/posts/" + postId,
+                method: 'DELETE',
+                url: '/posts/' + postId,
                 contentType:'application/json',
                 success: function(data){
                     location.href = '/posts';
                 }
             })
         })
+
     </script>
+    <script src="/js/comment.js"></script>
 </th:block>
 </html>
 

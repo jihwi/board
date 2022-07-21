@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <div class="comment_container">
+        <div class="alert alert-warning alert-dismissible fade show commentTemplate hidden" role="alert">
+            <strong class="insId">jihwi_kim</strong>
+            <span class="conts">You should check in on some of those fields below.</span>
+            <button class="badge text-bg-warning" onclick="replyComment()">reply</button>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            <div class="reply">
+
+            </div>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        commentList = /*[[ ${commentList} ]]*/ '';
+        template = $('.commentTemplate').clone();
+    </script>
+
+</html>
