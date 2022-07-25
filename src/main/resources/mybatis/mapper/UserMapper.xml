@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbproject.board.services.login.mapper.LoginRepository">
+    <insert id="insertUser">
+        INSERT INTO HB_PROJECT.USERS
+        (
+           ID
+         , PW
+         , ADDRESS
+         , NAME
+         , SEX
+         , AGE
+         , INS_ID
+         , INS_DTM
+         , MOD_ID
+         , MOD_DTM
+        ) VALUES
+        (
+           #{id,jdbcType=VARCHAR}
+         , #{pw,jdbcType=VARCHAR}
+         , #{address,jdbcType=VARCHAR}
+         , #{name,jdbcType=VARCHAR}
+         , #{sex,jdbcType=VARCHAR}
+         , #{age,jdbcType=VARCHAR}
+         , #{insId,jdbcType=VARCHAR}
+         , NOW()
+         , #{modId,jdbcType=VARCHAR}
+         , NOW()
+        )
+    </insert>
+    <select id="selectUser" resultType="com.hbproject.board.services.login.dto.User">
+        SELECT *
+        FROM HB_PROJECT.USERS
+        WHERE ID = #{id,jdbcType=VARCHAR}
+        AND PW = #{pw,jdbcType=VARCHAR}
+    </select>
+</mapper>

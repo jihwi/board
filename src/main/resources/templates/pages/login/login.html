@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout.html}">
+<th:block layout:fragment="content">
+    <main class="mb-4">
+        <div class="container px-4 px-lg-5">
+            <div class="row gx-4 gx-lg-5 justify-content-center">
+                <div class="col-md-10 col-lg-8 col-xl-7">
+                    <p>로그인 페이지</p>
+                    <div class="my-5">
+                        <form action="/login/check" method="get">
+                            <div class="mb-3">
+                                <label for="id" class="form-label">id</label>
+                                <input type="text" class="form-control" id="id" name="id">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleInputPassword1" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="pw">
+                            </div>
+                            <div id="errorMsg" th:classappend="${error} ? '' : 'd-none'">
+                                <div class="text-center mb-3">
+                                    <div class="fw-bolder" th:text="${error}">errorMsg</div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</th:block>
+
+</html>
