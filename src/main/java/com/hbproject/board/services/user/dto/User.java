@@ -1,4 +1,4 @@
-package com.hbproject.board.services.login.dto;
+package com.hbproject.board.services.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -51,5 +51,10 @@ public class User {
      * 수정일시
      */
     private LocalDateTime modDtm;
+
+    /**
+     * 사용자 권한 role
+     */
+    private String role;
 
 }

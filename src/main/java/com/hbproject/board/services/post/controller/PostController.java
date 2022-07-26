@@ -21,7 +21,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping({"/", ""})
 @Slf4j
-public class PostWebController {
+public class PostController {
 
     private final PostService postService;
 

@@ -9,18 +9,18 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <p>로그인 페이지</p>
                     <div class="my-5">
-                        <form action="/login/check" method="get">
+                        <form action="/login" method="post">
                             <div class="mb-3">
                                 <label for="id" class="form-label">id</label>
-                                <input type="text" class="form-control" id="id" name="id">
+                                <input type="text" class="form-control" id="id" name="username">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" name="pw">
+                                <input type="password" class="form-control" id="exampleInputPassword1" name="password">
                             </div>
-                            <div id="errorMsg" th:classappend="${error} ? '' : 'd-none'">
+                            <div id="errorMsg" class="d-none" >
                                 <div class="text-center mb-3">
-                                    <div class="fw-bolder" th:text="${error}">errorMsg</div>
+                                    <div class="fw-bolder">아이디, 비밀번호를 다시 확인해주세요.</div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary">Submit</button>
@@ -30,6 +30,14 @@
             </div>
         </div>
     </main>
+</th:block>
+<th:block layout:fragment="pageScript">
+    <script th:inline ="javascript">
+        const param = window.location.search;
+        if(param.indexOf('error')!=-1){
+            $('#errorMsg').removeClass('d-none');
+        }
+    </script>
 </th:block>
 
 </html>

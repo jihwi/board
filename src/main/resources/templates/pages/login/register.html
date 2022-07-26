@@ -9,14 +9,14 @@
                 <div class="col-md-10 col-lg-8 col-xl-7">
                     <p>회원가입 페이지</p>
                     <div class="my-5">
-                        <form class="row g-3" action="/login/account" method="post">
+                        <form class="row g-3" action="/account" method="post">
                             <div class="col-md-6">
                                 <label for="inputId" class="form-label">ID</label>
                                 <input type="text" class="form-control" id="inputId" name="id" th:value="${user?.id}">
                             </div>
                             <div class="col-md-6">
                                 <label for="inputPassword4" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="inputPassword4" name="pw" th:value="${user?.pw}">
+                                <input type="password" class="form-control" id="inputPassword4" name="pw">
                             </div>
                             <div class="col-12">
                                 <label for="inputAddress" class="form-label">Address</label>
