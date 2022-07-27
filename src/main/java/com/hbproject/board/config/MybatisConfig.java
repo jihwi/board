@@ -13,9 +13,8 @@ import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import javax.sql.DataSource;
 
 @Configuration
-//**으로 두번째 경로까지 잡아줘야 mapper 디렉토리를 잡음
-//com.hbproject.board.**.mapper와 동일
-@MapperScan("com.hbproject.board.services.*.mapper")
+//** 하위 모든 mapper로 잡음
+@MapperScan("com.hbproject.board.**.mapper")
 public class MybatisConfig {
 
     //@Value 는 단일값 주입이기때문에 여러값을 받아올때는 @ConfigurationProperties을 이용해야한다.

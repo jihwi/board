@@ -4,6 +4,7 @@ import com.hbproject.board.common.file.dto.FileDto;
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
 import org.apache.commons.io.FilenameUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,7 +28,8 @@ import java.util.List;
 public class FileHandler {
 
     private String[] imageExtentions = {"jpg", "png", "jpeg"};
-    private String uploadFolder = "/Users/cjenm/개인폴더/files";
+    @Value("${custom.path.upload-images}")
+    private String uploadFolder;
 
     /**
      * 파일 업로드
