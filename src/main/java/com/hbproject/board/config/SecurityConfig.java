@@ -27,7 +27,7 @@ public class SecurityConfig {
                     .antMatchers("/account/**").permitAll()
                     //css 못가져온다고 에러 메시지
                     //기본적으로 정적인 파일 까지도 보안 필터를 거치기 때문에 정적 파일에 대한 권한 허용을 설정해 주어야 한다.
-                    .mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                    .mvcMatchers("/css/**", "/js/**", "/img/**", "/tomcat/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin()
