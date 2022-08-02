@@ -6,7 +6,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.core.convert.ConversionService;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class AppRunner implements ApplicationRunner {
     @Autowired
     ConversionService conversionService;

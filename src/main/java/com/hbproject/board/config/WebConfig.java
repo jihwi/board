@@ -24,7 +24,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addResourceHandler("/tomcat/**")
                 //경로앞에 file://은 반드시 붙여줘야함
                 .addResourceLocations("file://"+ uploadFolder + "/")
-                .setCachePeriod(1000);
+                //초단위임 1000초인거임
+                .setCachePeriod(60);
     }
 
     @Bean
